@@ -1,4 +1,3 @@
-// Работа с датой
 const createTime = function() {
 
     // Создание элементов на странице
@@ -71,7 +70,7 @@ const createTime = function() {
         // Получения даты в местном формате
         dayOfWeek = day.toLocaleString('ru', optionsWeek);
 
-        // Конкатенация всех переменных в строку для вывода даты в полном формате
+        // Конкатенация переменных для вывода дня недели
         dayOfWeek = `Сегодня: ${dayOfWeek[0].toUpperCase() + dayOfWeek.slice(1)}`;
 
         // Сохранение результата функции
