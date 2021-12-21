@@ -1,5 +1,3 @@
-import oneScript from "./modules/one";
-import twoScript from "./modules/two";
+import timer from "./modules/timer";
 
-oneScript();
-twoScript();
+timer('25 december 2021');
