@@ -7,7 +7,9 @@ const timer = (deadline) => {
 
     // Функция для добавления нуля к дате и времени
     const addZero = (dateItem) => {
-        return dateItem = ('0' + dateItem).slice(-2);
+        if (dateItem < 0) {
+            return dateItem = ('0' + dateItem);
+        }
     }
 
     const getTimeRemaining = () => {
@@ -33,15 +35,6 @@ const timer = (deadline) => {
         timerMinutes.textContent = addZero(getTime.minute);
         timerSeconds.textContent = addZero(getTime.second);
         timerDays.textContent = addZero(getTime.day);
-        // if (getTime.timeRemaining > 0) {
-        //     setInterval(updateDate, 1000)
-        // } else {
-        //     timerHours.textContent = '00';
-        //     timerMinutes.textContent = '00';
-        //     timerSeconds.textContent = '00';
-        //     timerDays.textContent = '00';
-        // }
-        
     }
     updateDate();
 
