@@ -1,3 +1,5 @@
+import scrollSmooth from "./scrollSmooth";
+
 const menu = () => {
     // Получаем элементы со страницы
     const menuBurger = document.querySelector('.menu');
@@ -24,11 +26,7 @@ const menu = () => {
             e.preventDefault();
             handlerMenu();
             let anchorTarget = document.querySelector(e.target.getAttribute('href'));
-            anchorTarget.scrollIntoView(
-                {
-                    behavior: 'smooth'
-                }
-            );
+            scrollSmooth(anchorTarget);
         })
     });
 }

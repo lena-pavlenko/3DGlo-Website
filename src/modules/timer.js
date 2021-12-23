@@ -6,7 +6,7 @@ const timer = (deadline) => {
     const timerDays = document.getElementById('timer-days');
 
     // Функция для добавления нуля к дате и времени
-    const addZero = dateItem => dateItem < 0 ? `0${dateItem}` : dateItem;
+    const addZero = dateItem => dateItem < 10 ? `0${dateItem}` : dateItem;
         
 
     const getTimeRemaining = () => {
