@@ -1,9 +1,11 @@
 const scrollSmooth = (anchor) => {
-    anchor.scrollIntoView(
-        {
-            behavior: 'smooth'
-        }
-    );
+    
+    let dist = document.documentElement.scrollTop + anchor.getBoundingClientRect().top;
+
+    window.scrollTo({
+        top: dist,
+        behavior: "smooth"
+    })
 }
 
 export default scrollSmooth;
