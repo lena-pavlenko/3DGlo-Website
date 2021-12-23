@@ -6,7 +6,6 @@ const menu = () => {
     const menu = document.querySelector('menu');
     const menuClose = menu.querySelector('.close-btn');
     const menuItems = menu.querySelectorAll('ul > li > a');
-    const services = document.getElementById('service-block');
    
     // Функция для открытия/закрытия меню
     const handlerMenu = () => {
