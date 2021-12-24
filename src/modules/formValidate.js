@@ -4,12 +4,36 @@ const formValidate = () => {
     const inputMessage = document.querySelector('input[placeholder="Ваше сообщение"]');
     
     const regText = /[^а-яА-я\-\ ]/g;
+
     const regEmail = /[^a-zA-Z\@\-\_\.\!\~\*\']/g;
+
     const regTel = /[^\d\()\-]/g;
 
-    const inputValidate = function(myInput, reg){
+    const inputValidate = function(myInput, reg) {
         myInput.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(reg, '');
+        })
+    }
+
+    const blurInput = function(myInput, reg) {
+        myInput.addEventListener('blur', (e) => {
+            let value = e.target.value;
+
+            value = value.trim();
+            value = value.replace(reg, '');
+            value = value.replace(/^\-{0,}|\-{0,}$/g, '');
+            value = value.replace(/^\ {0,}|\ {0,}$/g, '');
+
+            if (e.target.getAttribute('type') === 'text') {
+                value = value.split(/\ +/).map(word => word[0].toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+            }
+
+            if (e.target.getAttribute('type') !== 'email') {
+                value = value.replace(/\-+/g, '-');
+            }
+            
+            e.target.value = '';
+            e.target.value = value;
         })
     }
 
@@ -17,11 +41,16 @@ const formValidate = () => {
         const inputText = form.querySelector('input[type="text"]');
         const inputEmail = form.querySelector('input[type="email"]');
         const inputTel = form.querySelector('input[type="tel"]');
-
+    
         inputValidate(inputText, regText);
         inputValidate(inputMessage, regText);
         inputValidate(inputEmail, regEmail);
         inputValidate(inputTel , regTel);
+        
+        blurInput(inputText, regText);
+        blurInput(inputEmail, regEmail);
+        blurInput(inputTel, regTel);
+        
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
