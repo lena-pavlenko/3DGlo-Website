@@ -5,7 +5,7 @@ const formValidate = () => {
     
     const regText = /[^а-яА-я\-\ ]/g;
 
-    const regEmail = /[^a-zA-Z\@\-\_\.\!\~\*\']/g;
+    const regEmail = /[^a-zA-Z0-9\@\-\_\.\!\~\*\']/g;
 
     const regTel = /[^\d\()\-]/g;
 

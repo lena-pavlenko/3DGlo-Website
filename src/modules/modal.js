@@ -2,7 +2,6 @@ const modal = () => {
     // Получаем элементы со страницы
     const modalButtons = document.querySelectorAll('.popup-btn');
     const modal = document.querySelector('.popup');
-    const modalClose = modal.querySelector('.popup-close');
     const modalContent = modal.querySelector('.popup-content');
 
     // Переменные для хранения метода анимации
@@ -83,16 +82,22 @@ const modal = () => {
         })
     })
 
-    // Вешаем обработчик на крестик внутри модального окна
-    modalClose.addEventListener('click', () => {
+    // Вешаем обработчик события на модальное окно
+    modal.addEventListener('click', (e) => {
 
-        // Если размер окна меньше 768px, то запускаем анимацию
-        if (window.screen.width > 768) {
-            stop = 0;
-            modalContent.style.transform = `translateX(${distanceModal}px)`;
-            modalCloseAnimate();
-        } else {
-            modal.style.display = 'none';
+        // Реализуем закрытие модального окна по клику по пустому месту и крестику
+        // Проверяем, не содержит ли текущий элемент или ближайший его родитель нужный класс 
+        // или текущий элемент является крестиком
+        if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
+
+            // Если размер окна меньше 768px, то запускаем анимацию
+            if (window.screen.width > 768) {
+                stop = 0;
+                modalContent.style.transform = `translateX(${distanceModal}px)`;
+                modalCloseAnimate();
+            } else {
+                modal.style.display = 'none';
+            }
         }
     })
 }

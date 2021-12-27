@@ -2,33 +2,43 @@ import scrollSmooth from "./scrollSmooth";
 
 const menu = () => {
     // Получаем элементы со страницы
-    const menuBurger = document.querySelector('.menu');
     const menu = document.querySelector('menu');
-    const menuClose = menu.querySelector('.close-btn');
-    const menuItems = menu.querySelectorAll('ul > li > a');
-    const services = document.getElementById('service-block');
+    const body = document.querySelector('body');
    
     // Функция для открытия/закрытия меню
     const handlerMenu = () => {
         menu.classList.toggle('active-menu');
     }
 
-    // Обработчики кликов по бургер-меню и по крестику в меню
-    menuBurger.addEventListener('click', handlerMenu);
-    menuClose.addEventListener('click', (e) => {
-        e.preventDefault();
-        handlerMenu();
-    });
+    // Вешаем обработчик события на body
+    body.addEventListener('click', (e) => {
 
-    // Обработка клика на каждом элементе a в пунктах меню
-    menuItems.forEach(menuItem => {
-        menuItem.addEventListener('click', (e) => {
-            e.preventDefault();
+        // Проверяем, есть ли у ближайшего родителя текущего элемента нужный класс
+        if (e.target.closest('.menu')) {
             handlerMenu();
-            let anchorTarget = document.querySelector(e.target.getAttribute('href'));
-            scrollSmooth(anchorTarget);
-        })
-    });
+        }
+
+        // Проверяем, есть ли у ближайшего родителя текущего элемента нужные теги
+        if (e.target.tagName === 'A' && e.target.closest('menu')) {
+            e.preventDefault(); // Отключаем стандартное поведение
+            handlerMenu();
+
+            // Проверяем, является ли текущий элемент элементом списка
+            if (e.target.closest('li')) {
+
+                // Получаем значение тега href
+                let anchorTarget = document.querySelector(e.target.getAttribute('href'));
+                // Запускаем функцию плавной прокрутки до блока с нужным id
+                scrollSmooth(anchorTarget);
+            } 
+        }
+        
+        // Проверяем, если у текущего элемента нет ближайших родителей с данными селекторами
+        if (!e.target.closest('menu') && !e.target.closest('.menu')) {
+            // То скрываем меню
+            menu.classList.remove('active-menu')
+        }
+    })
 }
 
 export default menu;
