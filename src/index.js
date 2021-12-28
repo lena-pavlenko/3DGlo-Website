@@ -14,4 +14,5 @@ buttonScroll();
 calculator();
 formValidate();
 tabs();
-slider();
+
+slider('portfolio-content', 'portfolio-item', 'portfolio-dots', 'dot-active', 'portfolio-item-active', 'portfolio-btn', 'arrow-left', 'arrow-right');
