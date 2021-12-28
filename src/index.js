@@ -5,6 +5,7 @@ import buttonScroll from "./modules/buttonScroll";
 import calculator from "./modules/calculator";
 import formValidate from "./modules/formValidate";
 import tabs from "./modules/tabs";
+import slider from "./modules/slider";
 
 timer('25 december 2021');
 menu();
@@ -13,3 +14,4 @@ buttonScroll();
 calculator();
 formValidate();
 tabs();
+slider();
