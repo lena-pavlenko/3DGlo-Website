@@ -18,12 +18,14 @@ const calculator = (price = 100) => {
 
     // Функция для анимации перебора чисел
     const animateNumber = (elem, num) => {
-        const time = 400;
-        const step = 20;
+        const time = 1000;
+        let step = num / 100;
         let n = 0;
 
-        let temp = Math.round(time / (num / step));     
+        let temp = Math.round(time / (num / step));
+        
         let interval = setInterval(() => {
+
             if (n >= num) {
                 clearInterval(interval);
                 return false;
