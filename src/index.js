@@ -11,7 +11,7 @@ timer('25 december 2021');
 menu();
 modal();
 buttonScroll();
-calculator();
+calculator(100);
 formValidate();
 tabs();
 
