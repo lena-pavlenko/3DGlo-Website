@@ -74,7 +74,6 @@ const calculator = (price = 100) => {
         } else {
             totalValue = 0;
         }
-        console.log(totalValue)
         // Выводим итоговую стоимость на страницы
         animateNumber(totalSum, totalValue);
     }
