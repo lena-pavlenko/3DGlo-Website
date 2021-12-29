@@ -18,8 +18,8 @@ const calculator = (price = 100) => {
 
     // Функция для анимации перебора чисел
     const animateNumber = (elem, num) => {
-        const time = 1000;
-        let step = num / 100;
+        const time = 500;
+        let step = num / 10;
         let n = 0;
 
         let temp = Math.round(time / (num / step));
@@ -32,7 +32,7 @@ const calculator = (price = 100) => {
             }
             
             n = n + step;
-            elem.textContent = n;
+            elem.textContent = Math.floor(n);
         }, temp)
     }
 
@@ -74,8 +74,7 @@ const calculator = (price = 100) => {
         } else {
             totalValue = 0;
         }
-
-        
+        console.log(totalValue)
         // Выводим итоговую стоимость на страницы
         animateNumber(totalSum, totalValue);
     }
