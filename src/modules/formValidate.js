@@ -24,7 +24,7 @@ const formValidate = () => {
             value = value.replace(/^\-{0,}|\-{0,}$/g, '');
             value = value.replace(/^\ {0,}|\ {0,}$/g, '');
 
-            if (e.target.getAttribute('type') === 'text') {
+            if (e.target.getAttribute('type') === 'text' && e.target.value) {
                 value = value.split(/\ +/).map(word => word[0].toUpperCase() + word.slice(1).toLowerCase()).join(' ');
             }
 

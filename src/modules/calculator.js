@@ -1,3 +1,5 @@
+import { animate } from "./helpers";
+
 const calculator = (price = 100) => {
     // Получаем элементы
     const calcItems = document.querySelectorAll('input.calc-item');
@@ -17,31 +19,31 @@ const calculator = (price = 100) => {
     })
 
     // Функция для анимации перебора чисел
-    const animateNumber = (elem, num) => {
-        const time = 500;
-        let step = num / 10;
-        let n = 0;
+    // const animateNumber = (elem, num) => {
+    //     const time = 500;
+    //     let step = num / 10;
+    //     let n = 0;
 
-        let temp = Math.round(time / (num / step));
+    //     let temp = Math.round(time / (num / step));
         
-        let interval = setInterval(() => {
+    //     let interval = setInterval(() => {
 
-            if (n >= num) {
-                clearInterval(interval);
-                return false;
-            }
+    //         if (n >= num) {
+    //             clearInterval(interval);
+    //             return false;
+    //         }
             
-            n = n + step;
-            elem.textContent = Math.floor(n);
-        }, temp)
-    }
+    //         n = n + step;
+    //         elem.textContent = Math.floor(n);
+    //     }, temp)
+    // }
 
     // Функция debounce принимает в качестве аргумента функцию, которая запускается на обработчике события
     const debounce = (callback) => {
         let timeout;
         return (argument) => {
             clearTimeout(timeout);
-            timeout = setTimeout(callback, 700, argument);
+            timeout = setTimeout(callback, 500, argument);
         };
     }
 
@@ -75,7 +77,15 @@ const calculator = (price = 100) => {
             totalValue = 0;
         }
         // Выводим итоговую стоимость на страницы
-        animateNumber(totalSum, totalValue);
+        animate({
+            duration: 700,
+            timing (timeFraction) {
+                return Math.pow (timeFraction, 2);
+            },
+            draw (progress) {
+                totalSum.textContent = Math.floor(progress * totalValue)
+            }
+        });
     }
 
     // Сохраняем результат debounce в переменной

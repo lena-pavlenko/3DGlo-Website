@@ -1,4 +1,4 @@
-import scrollSmooth from "./scrollSmooth";
+import { scrollSmooth } from "./helpers";
 
 const buttonScroll = () => {
     // Получаем элементы со страницы

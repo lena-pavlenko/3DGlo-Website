@@ -1,4 +1,4 @@
-import scrollSmooth from "./scrollSmooth";
+import { scrollSmooth } from "./helpers";
 
 const menu = () => {
     // Получаем элементы со страницы
