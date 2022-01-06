@@ -9,6 +9,8 @@ const formValidate = () => {
 
     const regTel = /[^\d\()\-]/g;
 
+    const regMess = /[^\d\W]/g;
+
     const inputValidate = function(myInput, reg) {
         myInput.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(reg, '');
@@ -43,18 +45,13 @@ const formValidate = () => {
         const inputTel = form.querySelector('input[type="tel"]');
     
         inputValidate(inputText, regText);
-        inputValidate(inputMessage, regText);
+        inputValidate(inputMessage, regMess);
         inputValidate(inputEmail, regEmail);
         inputValidate(inputTel , regTel);
         
         blurInput(inputText, regText);
         blurInput(inputEmail, regEmail);
         blurInput(inputTel, regTel);
-        
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-        })
     })
 }
 
