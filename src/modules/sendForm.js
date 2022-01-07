@@ -94,6 +94,8 @@ const sendForm = ({formId, someElem = []}) => {
                 statusBlock.textContent = errorText;
             })
         } else {
+            loader.style.display = 'none';
+            statusBlock.textContent = errorText;
             alert('Данные не валидны!')
         }
     }
