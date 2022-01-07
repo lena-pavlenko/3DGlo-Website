@@ -96,7 +96,12 @@ const sendForm = ({formId, someElem = []}) => {
         } else {
             loader.style.display = 'none';
             statusBlock.textContent = errorText;
-            alert('Данные не валидны!')
+            
+            for (let key in checkForm) {
+                if (checkForm[key] === false){
+                    form.querySelector('input[name="'+key+'"]').style.border = '1px solid red';
+                }
+            }
         }
     }
 

@@ -2,6 +2,7 @@ const formValidate = () => {
 
     const forms = document.querySelectorAll('form[name="user_form"]');
     const inputMessage = document.querySelector('input[placeholder="Ваше сообщение"]');
+    const msg = document.createElement('p');
     
     const regText = /[^а-яА-я\-\ ]/g;
 
@@ -27,7 +28,28 @@ const formValidate = () => {
             value = value.replace(/^\ {0,}|\ {0,}$/g, '');
 
             if (e.target.getAttribute('type') === 'text' && e.target.value) {
-                value = value.split(/\ +/).map(word => word[0].toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+                if (e.target.value.length >= 2) {
+                    value = value.split(/\ +/).map(word => word[0].toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+                    e.target.setCustomValidity('')
+                } else {
+                    e.target.setCustomValidity('Имя должно содержать 2 и более символа, кириллицу, дефис или пробел');
+                }
+            }
+
+            if (e.target.getAttribute('type') === 'tel') {
+                if (e.target.value.length < 11) {
+                    e.target.setCustomValidity('Телефон должен содержать не менее 11 символов, цифры, (), -');
+                } else {
+                    e.target.setCustomValidity('');
+                }
+            }
+
+            if (e.target.getAttribute('type') === 'email') {
+                if (e.target.value.match(/\S+@\S+\.\S+/g) && e.target.value.length > 0) {
+                    e.target.setCustomValidity('');
+                } else {
+                    e.target.setCustomValidity("Email должен быть в формате ababa@ababa.ab, содержать _.!~*'");
+                }
             }
 
             if (e.target.getAttribute('type') !== 'email') {
