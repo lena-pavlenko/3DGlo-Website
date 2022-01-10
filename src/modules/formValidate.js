@@ -45,10 +45,10 @@ const formValidate = () => {
             }
 
             if (e.target.getAttribute('type') === 'email') {
-                if (e.target.value.match(/\S+@\S+\.\S+/g) && e.target.value.length > 0) {
+                if (e.target.value.match(/[^а-я]+\S+@\S+[^а-я]+\.\S+[^а-я]+/gi) && e.target.value.length > 0) {
                     e.target.setCustomValidity('');
                 } else {
-                    e.target.setCustomValidity("Email должен быть в формате ababa@ababa.ab, содержать _.!~*'");
+                    e.target.setCustomValidity("Email должен быть в формате ababa@ababa.ab, содержать латиницу, цифры,_.!~*'");
                 }
             }
 

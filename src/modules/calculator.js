@@ -10,6 +10,8 @@ const calculator = (price = 100) => {
     const calcDays = document.querySelector('.calc-day');
     const totalSum = document.getElementById('total');
 
+    // Переменная для хранения последнего значения суммы
+    let lastTotal = 0;
 
     // Перебираем инпуты циклом и вешаем обработчик input
     calcItems.forEach(calcItem => {
@@ -18,32 +20,12 @@ const calculator = (price = 100) => {
         })
     })
 
-    // Функция для анимации перебора чисел
-    // const animateNumber = (elem, num) => {
-    //     const time = 500;
-    //     let step = num / 10;
-    //     let n = 0;
-
-    //     let temp = Math.round(time / (num / step));
-        
-    //     let interval = setInterval(() => {
-
-    //         if (n >= num) {
-    //             clearInterval(interval);
-    //             return false;
-    //         }
-            
-    //         n = n + step;
-    //         elem.textContent = Math.floor(n);
-    //     }, temp)
-    // }
-
     // Функция debounce принимает в качестве аргумента функцию, которая запускается на обработчике события
     const debounce = (callback) => {
         let timeout;
         return (argument) => {
             clearTimeout(timeout);
-            timeout = setTimeout(callback, 500, argument);
+            timeout = setTimeout(callback, 700, argument);
         };
     }
 
@@ -76,18 +58,46 @@ const calculator = (price = 100) => {
         } else {
             totalValue = 0;
         }
-        // Выводим итоговую стоимость на страницы
-        animate({
-            duration: 700,
-            timing (timeFraction) {
-                return Math.pow (timeFraction, 2);
-            },
-            draw (progress) {
-                totalSum.textContent = Math.floor(progress * totalValue)
-            }
-        });
-    }
+        // Выводим итоговую стоимость на страницу
 
+        // Если  последнее значение не равно текущей сумме, то цифры "бегут",
+        // анимация начинается с последнего значения
+        if (lastTotal !== totalValue) {
+            if (lastTotal < totalValue) {
+            
+                animate({
+                    duration: 700,
+                    timing (timeFraction) {
+                        
+                        return Math.pow (timeFraction, 2);
+                    },
+                    draw (progress) {
+                        console.log(lastTotal);
+                        totalSum.textContent = Math.floor((totalValue - lastTotal) * progress + lastTotal);
+                        if (progress == 1){
+                            lastTotal = totalValue;
+                        }
+                    }
+                });
+            }
+    
+            if (lastTotal > totalValue) {
+                animate({
+                    duration: 700,
+                    timing (timeFraction) {
+                        return Math.pow (timeFraction, 2);
+                    },
+                    draw (progress) {
+                        totalSum.textContent = -Math.floor((lastTotal - totalValue) * progress - lastTotal);
+                        if (progress == 1){
+                            lastTotal = totalValue;
+                        }
+                    }
+                });
+            }
+        }
+    }
+    
     // Сохраняем результат debounce в переменной
     const debouncedOnInput = debounce(countCalc);
 

@@ -8,7 +8,7 @@ import tabs from "./modules/tabs";
 import slider from "./modules/slider";
 import sendForm from "./modules/sendForm";
 
-timer('25 december 2021');
+timer('22 january 2022');
 menu();
 modal();
 buttonScroll();

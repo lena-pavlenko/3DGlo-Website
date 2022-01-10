@@ -1,8 +1,27 @@
+import { animate } from "./helpers";
+
 const sendForm = ({formId, someElem = []}) => {
 
     // Получаем элементы со страницы
     const form = document.getElementById(formId);
     const loader = document.querySelector('.loader-box');
+    const modal = document.querySelector('.popup');
+    const modalContent = modal.querySelector('.popup-content');
+
+    // Узнаем ширину экрана без скролла
+    const widthScreen = document.documentElement.scrollWidth;
+
+    // Показываем блок, чтобы узнать координаты контента модального окна
+    modal.style.display = 'block';
+
+    // Узнаем расстояние от блока до левого края
+    let dist = modalContent.getBoundingClientRect().left;
+
+    // Скрываем блок
+    modal.style.display = 'none';
+
+    // Узнаем расстояние до правой части экрана, чтобы скрыть контент модального окна
+    const distanceModal = widthScreen - dist;
 
     // Создаем элемент и переменные для вывода сообщений
     const statusBlock = document.createElement('div');
@@ -27,7 +46,7 @@ const sendForm = ({formId, someElem = []}) => {
             user_name: /[а-яА-я\-\ ]/g,
             user_email: /[a-zA-Z0-9\@\-\_\.\!\~\*\']/g,
             user_phone: /[\d\()\-]/g,
-            user_message: /[^\d\W]/g
+            user_message: /[\d\W]/g
         }
 
         // Создаем объект для хранения ошибок
@@ -78,16 +97,43 @@ const sendForm = ({formId, someElem = []}) => {
 
         // Сохраняем объект с проверкой инпутов в переменную
         let checkForm = validate(formElements);
+        for (let key in checkForm) {
+            if (checkForm[key] === true){
+                form.querySelector('input[name="'+key+'"]').style.border = 'none';
+            }
+        }
 
         // Проверяем, если в объекте нет ошибок
         if (!Object.values(checkForm).includes(false) ) {
-
             // То отправляем данные и показываем сообщения в зависимости от статуса отправки
             sendData(formBody).then(data => {
                 formElements.forEach(input => {
                     loader.style.display = 'none';
                     input.value = '';
                     statusBlock.textContent = successText;
+
+                    if (formId === 'form3') {
+                        setTimeout(() => {
+                            // Если размер окна больше 768px, то запускаем анимацию
+                            if (window.screen.width > 768) {
+                                animate({
+                                    duration: 300,
+                                    timing(timeFraction) {
+                                    return timeFraction;
+                                    },
+                                    draw(progress) {
+                                        modalContent.style.transform = `translateX(${ ( (progress * distanceModal) ) }px)`;
+                                    }
+                                })
+                                setTimeout(() => {
+                                    modal.style.display = 'none';
+                                }, 350)
+                            } else {
+                                modal.style.display = 'none';
+                            }
+                            statusBlock.textContent = '';
+                        }, 2000);
+                    }
                 })
             }).catch(error => {
                 loader.style.display = 'none';
